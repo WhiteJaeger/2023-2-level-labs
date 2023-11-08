@@ -21,7 +21,7 @@ jobs:
           repo: fipl-hse.github.io
           github_token: ${{ secrets.PUBLISH_PAT }}
           workflow_file_name: deploy.yml
-          wait_interval: 10
+          wait_interval: 15
           client_payload: '{"sample": 123}'
           propagate_failure: true
           trigger_workflow: true
