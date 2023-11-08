@@ -1,0 +1,28 @@
+name: "Trigger Website Publish"
+
+on:
+  push:
+
+concurrency:
+  group: ${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  install-dependencies:
+    name: Installing dependencies
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+
+    steps:
+      - name: Trigger Website Deploy Workflow
+        uses: convictional/trigger-workflow-and-wait@v1.6.1
+        with:
+          owner: WhiteJaeger
+          repo: fipl-hse.github.io
+          github_token: ${{ secrets.PUBLISH_PAT }}
+          workflow_file_name: deploy.yml
+          wait_interval: 10
+          client_payload: '{"sample": 123}'
+          propagate_failure: true
+          trigger_workflow: true
+          wait_workflow: true
